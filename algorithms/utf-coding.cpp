@@ -1,97 +1,50 @@
 #include<iostream>
 #include<cstdio>
-#include<math.h>
+#include<vector>
+#include<string>
+#include<stdio.h>
 using namespace std;
-class Complex {
-private:
-	double re;
-	double im;
-
-public:
-	explicit Complex(double rre = 0, double iim = 0)
-		: re(rre)
-		, im(iim)
-	{}
-	double Im() const {
-		return im;
+int first1(int c) {
+	int num = 0;
+	while (c > 0) {
+		c = c >> 1;
+		num++;
 	}
-	double Re() const {
-		return re;
-	}
-	Complex& operator += (const Complex& a) {
-		im += a.im;
-		re += a.re;
-		return *this;
-	}
-	Complex& operator -= (const Complex& a) {
-		im -= a.im;
-		re -= a.re;
-		return *this;
-	}
-	Complex operator *= (const Complex& a) {
-		double newIm = a.im * re + a.re * im;
-		re = re * a.re - im * a.im;
-		im = newIm;
-		return *this;
-	}
-	Complex operator /= (const Complex& a) {
-		double newRe = (im * a.im + re * a.re) / (a.im * a.im + a.re * a.re);
-		im = (im * a.re - re * a.im) / (a.im * a.im + a.re * a.re);
-		re = newRe;
-		return *this;
-	}
-	Complex operator + () const {
-		return *this;
-	}
-	Complex operator - () const {
-		return Complex(-re, -im);
-	}
-	bool operator == (Complex a) const {
-		return (im == a.im && re == a.re);
-	}
-	bool operator != (Complex a) const {
-		return (im != a.im || re != a.re);
-	}
-};
-Complex operator + (Complex a, const double& b) {
-	return a += Complex(b);
-}
-Complex operator + (const double& a, Complex b) {
-	return Complex(a) += b;
-}
-Complex operator + (Complex a, const Complex& b) {
-	return a += b;
+	return num;
 }
 
-Complex operator - (Complex a, const Complex& b) {
-	return a -= b;
+string antiutf(vector <int> v) {
+	int k = 0;
+	string ans;
+	for (auto n : v) {
+		int f = first1(n);
+		vector <int> v0;
+		int num = 1;
+		if (n < 127) {
+			ans.push_back(n);
+		}
+		else {
+			while (f + num + 1 > 8) {
+				v0.push_back((1 << 7) | (n & ((1 << 6) - 1)));
+				n >>= 6;
+				f -= 6;
+				num++;
+			}
+			int byte = ((1 << num) - 1) << (8 - num);
+			byte |= n;
+			v0.push_back(byte);
+			for (int i = v0.size() - 1; i >= 0; i--) {
+				ans.push_back(v0[i]);
+			}
+		}
+	}
+	return ans;
 }
-Complex operator - (Complex a, const double& b) {
-	return a -= Complex(b);
-}
-Complex operator - (const double& a, Complex b) {
-	return Complex(a) -= b;
-}
-
-Complex operator * (Complex a, const double& b) {
-	return a *= Complex(b);
-}
-Complex operator * (const double& a, Complex b) {
-	return Complex(a) *= b;
-}
-Complex operator * (Complex a, const Complex& b) {
-	return a *= b;
-}
-
-Complex operator / (Complex a, const double& b) {
-	return a /= Complex(b);
-}
-Complex operator / (const double& a, Complex b) {
-	return Complex(a) /= b;
-}
-Complex operator / (Complex a, const Complex& b) {
-	return a /= b;
-}
-double abs(Complex a) {
-	return sqrt(a.Re() * a.Re() + a.Im() * a.Im());
+int main() {
+	vector <int> v;
+	int i;
+	while (cin >> i) {
+		v.push_back(i);
+	}
+	cout << antiutf(v);
 }
