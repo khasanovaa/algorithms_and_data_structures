@@ -5,17 +5,17 @@ NP-COMPLETE TASKS:
     input: the amount of things, their weight, their value, a given limit.<br>
     output: the max total value, number of things, that were used to reach max total value.<br>
     
-2) <i>Vertex-cover<i><br>
+2) <i>Vertex-cover</i><br>
     Find a K-vertex cover.
     input: the amount of vertexes, amount of edges and K, list of edges.
     output: if the K-vertex exists: YES and vertexes in vertex-cover, else: NO
 
 FINITE AUTOMATION:
-1) <i>DFA.cpp<\i><br>
+1) <i>DFA.cpp</i><br>
    input: N - amount of conditions, then N strings with condition description: (1-condition is terminal or 0-condition is not terminal), T - amount of transitions, then T descriptions off transitions (symbol, condition), then M - amount of strings to check this automat. 
    output: M+1 string: 1-the automat accepts the word, 0-the automat doesn't accepts the word.
    
-2) <i>NFA.cpp<\i><br>
+2) <i>NFA.cpp</i><br>
    input: N - amount of conditions, then N strings with condition description: (1-condition is terminal or 0-condition is not terminal), E- emount of epsilon-transitions, E number of epsilon-transitions, T - amount of transitions, then T descriptions off transitions (symbol, condition), then M - amount of strings to check this automat. 
    output: M+1 string: 1-the automat accepts the word, 0-the automat doesn't accepts the word.
 
